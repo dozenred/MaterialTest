@@ -18,6 +18,7 @@ public class DrawerActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private FloatingActionButton mFab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,20 @@ public class DrawerActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         initToolbar();
         initNavigation();
+        myFloatButton();
+    }
+
+    private void myFloatButton() {
+        mFab = (FloatingActionButton) findViewById(R.id.drawerlayout_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getContext() == DrawerActivity.this){
+                    Toast.makeText(v.getContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     private void initNavigation() {
@@ -41,12 +56,13 @@ public class DrawerActivity extends AppCompatActivity {
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
         mToolbar.setTitle("hi drawer");
+        setSupportActionBar(mToolbar);
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
     }

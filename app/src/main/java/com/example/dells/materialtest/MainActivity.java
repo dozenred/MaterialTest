@@ -40,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
         mToolbar.setTitle("wtf");
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        setSupportActionBar(mToolbar);
 
-            }
-        });
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override
