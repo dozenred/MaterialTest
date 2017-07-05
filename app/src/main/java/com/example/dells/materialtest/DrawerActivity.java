@@ -8,17 +8,28 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.dells.materialtest.Adapter.DogAdapter;
+import com.example.dells.materialtest.bean.Dog;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public class DrawerActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private FloatingActionButton mFab;
+
+    private ArrayList<Dog> dogsList = new ArrayList<>();
+    private DogAdapter dogAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +38,28 @@ public class DrawerActivity extends AppCompatActivity {
         initToolbar();
         initNavigation();
         myFloatButton();
+
+        initDogs();
+        initRecycler();
+    }
+
+    private void initRecycler() {
+        RecyclerView recyclerview = (RecyclerView) findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerview.setLayoutManager(layoutManager);
+        dogAdapter = new DogAdapter(this, dogsList);
+        recyclerview.setAdapter(dogAdapter);
+
+    }
+
+    private void initDogs() {
+        Dog[] dogs = {new Dog("拉布拉多", R.drawable.dog_face_wind_glasses_1920x1080), new Dog("二哈", R.drawable.husky_dog_puppy_snout_eyes_lies_1920x1080)};
+        dogsList.clear();
+        for(int i = 0; i <50; i++){
+            Random random = new Random();
+            int index = random.nextInt(dogs.length);
+            dogsList.add(dogs[index]);
+        }
     }
 
     private void myFloatButton() {
@@ -35,7 +68,13 @@ public class DrawerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v.getContext() == DrawerActivity.this){
-                    Toast.makeText(v.getContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(v.getContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "wtf?", Snackbar.LENGTH_SHORT).setAction("Undo?", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(v.getContext(), "restore", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
                 }
 
             }
