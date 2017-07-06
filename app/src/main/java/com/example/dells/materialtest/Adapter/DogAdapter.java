@@ -1,6 +1,7 @@
 package com.example.dells.materialtest.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dells.materialtest.DogActivity;
 import com.example.dells.materialtest.R;
 import com.example.dells.materialtest.bean.Dog;
 
@@ -34,7 +36,18 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> {
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.dog_item, parent, false);
-        ViewHolder mViewHolder = new ViewHolder(view);
+        final ViewHolder mViewHolder = new ViewHolder(view);
+
+        mViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dog dog = mDogList.get(mViewHolder.getAdapterPosition());
+                Intent intent = new Intent(mContext, DogActivity.class);
+                intent.putExtra(DogActivity.DOG_IMAGE_ID, dog.getImageId());
+                intent.putExtra(DogActivity.DOG_NAME, dog.getName());
+                mContext.startActivity(intent);
+            }
+        });
         return mViewHolder;
     }
 
