@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".DrawerActivity"/>
-        <activity android:name=".DogActivity">
+        <activity
+            android:name=".DogActivity"
+            android:theme="@style/DogActivityTheme">
         </activity>
     </application>
 
